@@ -1,0 +1,36 @@
+.colorTituloPrincipal {
+    color:black;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+}
+
+.textoNavbar {
+    font-size: 12px;
+}
+
+.textoFooter {
+    color: black;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.colorVioleta {
+    background-color: #A67DB8;
+}
+
+.colorCosmicLatte {
+    background-color: #F7F3E3;
+}
+
+.brand-margin {
+    margin-left: 20px;
+}
+
+.efecto-glass {
+    background: rgba(166, 125, 184, 0.85);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.3px);
+    -webkit-backdrop-filter: blur(8.3px);
+    border: 1px solid rgba(166, 125, 184, 0.21);
+}
