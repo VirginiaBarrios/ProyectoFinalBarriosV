@@ -1,31 +1,36 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import arrayProductos from "./json/productos.json";
 import ItemList from "./ItemList";
 import Carousel from "./Carousel";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
+import Loading from "./Loading";
 
 const ItemListContainer = () => {
-    const [items, setItems] = useState([]);
-    const {id} = useParams();
+    const [Items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { id } = useParams();
 
     useEffect(() => {
-        const promesa = new Promise(resolve => {
-            setTimeout(() => {
-                resolve(id ? arrayProductos.filter(item => item.categoria == id) : arrayProductos);
-            }, 2000)
-        });
+        const db = getFirestore();
+        const itemsCollection = collection(db, "Items");
+        const queryCollection = id ? query(itemsCollection, where("categoria", "==", id)) : itemsCollection;
         
-        promesa.then(respuesta => {
-            setItems(respuesta);
-        })
-    }, [id])
+        getDocs(queryCollection).then(snapShot => {
+            if (snapShot.size > 0) {
+                setItems(snapShot.docs.map(item => ({ id: item.id, ...item.data() })));
+            } else {
+                setItems([]);
+            }
+            setLoading(false);
+        });
+    }, [id]);
 
     return (
         <>
-            {id ? "" : <Carousel />}
+            {!id && <Carousel />}
             <div className="container">
                 <div className="row my-5">
-                    <ItemList items={items} />
+                    {loading ? <Loading /> : <ItemList items={Items} />}
                 </div>
             </div>
         </>
@@ -33,3 +38,5 @@ const ItemListContainer = () => {
 }
 
 export default ItemListContainer;
+
+

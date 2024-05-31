@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
+import { CartContext } from './context/CartContext';
 
 const CartWidget = () => {
-    const itemsInCart = 5;
+    const {getCountProducts} = useContext(CartContext);
 
-    return (
-        <div className="cart-widget">
-            <i className="bi bi-cart"></i>
-            <span className="badge colorVioleta">{itemsInCart}</span>
-        </div>
-    );
+
+    if (getCountProducts() > 0) {
+        return (
+            <Link to="/cart" className="custom-link">
+                <div className="cart-container">
+                    <i className="bi bi-cart"></i>
+                    <span className="badge buttonCart">{getCountProducts()}</span>
+                </div>
+            </Link>
+        )
+    }
 }
 
 export default CartWidget;
+
