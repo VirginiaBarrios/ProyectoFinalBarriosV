@@ -33,16 +33,16 @@ const Cart = () => {
                             {cart.map(item => (
                                 <tr key={item.id}>
                                     <td><img src={item.imagen} alt={item.nombre} width={120} /></td>
-                                    <td className="align-middle text-center">{item.nombre}</td>
+                                    <td className="align-middle text-start">{item.nombre}</td>
                                     <td className="align-middle text-center">${item.precio}</td>
                                     <td className="align-middle text-center">{item.quantity}</td>
+                                    <td className="align-middle text-center">${item.quantity * item.precio}</td>
                                     <td className="align-middle text-center"><img src={trash} width={22} alt="Eliminar" title="Eliminar Producto" onClick={() => {removeItem(item.id)}} /></td>
                                 </tr>
                             ))}
                             <tr>
-                                <td colSpan={2} className="text-center"><b>Total</b></td>
+                                <td colSpan={4} className="text-center"><b>Total</b></td>
                                 <td className="text-center"><b>${getSumProducts()}</b></td>
-                                <td>&nbsp;</td>
                                 <td className="text-end"><Link to={"/checkout"} className="btn colorVioleta text-black rounded-3 m-1">Checkout</Link></td>
                             </tr>
                         </tbody>
